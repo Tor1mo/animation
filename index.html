@@ -9,7 +9,6 @@
           rel="stylesheet">
 
 
-
     <style>
         @keyframes fadeInDown {
             from {
@@ -797,7 +796,12 @@
 
 
     function plumb() {
-        fadeInOg()
+        if (timeouts.length > 0){
+            timeouts.map(clearTimeout)
+            timeouts = []
+        }
+
+
         updateData()
 
         moveLabel(1)
@@ -818,6 +822,7 @@
     }
 
     function startPlumbing(){
+            fadeInOg()
             plumb()
             setInterval(plumb, 7000)
     }
@@ -827,7 +832,7 @@
 
 
     var xhr = new XMLHttpRequest()
-    xhr.open("GET", "https://api.ipapi.com/check?access_key=8de3695200041560f33cbfbd05d59ad8&format=1", true);
+    xhr.open("GET", "http://api.ipapi.com/check?access_key=8de3695200041560f33cbfbd05d59ad8&format=1", true);
     xhr.onload = function (e) {
       if (xhr.readyState === 4) {
             var json = JSON.parse(this.responseText)
